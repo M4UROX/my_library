@@ -32,11 +32,11 @@
 
                 <div>
                     <label for="year" class="block text-sm font-medium text-gray-700 mb-2">Fecha de Publicación</label>
-                    <!-- Limitación de fecha máxima a 2025 para evitar fechas futuras irreales -->
+                    <!-- Limitación de fecha máxima a la fecha actual (año, mes y día) para evitar fechas futuras -->
                     <input type="date" id="year" name="year" required
                            value="<?= isset($book) ? htmlspecialchars($book['publish_date']) : '' ?>"
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-                           max="2025-12-31">
+                           max="<?= date('Y-m-d') ?>">
                 </div>
 
                 <div class="flex space-x-4 pt-4">
