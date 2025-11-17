@@ -27,6 +27,12 @@
                     </div>
                 <?php endif; ?>
 
+                <?php if (isset($_GET['success']) && $_GET['success'] === 'comment_edited'): ?>
+                    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+                        Comentario editado correctamente.
+                    </div>
+                <?php endif; ?>
+
                 <?php if (isset($_GET['success']) && $_GET['success'] === 'comment_deleted'): ?>
                     <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
                         Comentario eliminado correctamente.
@@ -56,14 +62,17 @@
                                     </div>
                                     
                                     <?php if ($_SESSION['user'] && $_SESSION['user']['id'] === $comment['user_id']): ?>
-    <div class="flex items-center space-x-2">
-        <form method="GET" action="/delete-comment/<?= $comment['id'] ?>" class="inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este comentario?');">
-            <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium">
-                Eliminar
-            </button>
-        </form>
-    </div>
-<?php endif; ?>
+                                        <div class="flex items-center space-x-2">
+                                            <a href="/edit-comment/<?= $comment['id'] ?>" class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-4">
+                                                Editar
+                                            </a>
+                                            <form method="GET" action="/delete-comment/<?= $comment['id'] ?>" class="inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este comentario?');">
+                                                <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>

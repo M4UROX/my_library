@@ -40,6 +40,7 @@
                             <!-- Menú desplegable -->
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                                 <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Mi Perfil</a>
+                                <a href="/my-books-comments" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Mis Libros y Comentarios</a>  <!-- NUEVO: Enlace a la página de resumen personal -->
                                 <a href="/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Cerrar Sesión</a>
                             </div>
                         </div>

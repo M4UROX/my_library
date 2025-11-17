@@ -25,6 +25,13 @@
                 </div>
             <?php endif; ?>
 
+            <!-- Mensaje de error específico para eliminación fallida -->
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'delete_failed'): ?>
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+                    Error al eliminar la cuenta. Verifica tu contraseña.
+                </div>
+            <?php endif; ?>
+
             <form method="POST" class="space-y-6">
                 <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                 
@@ -93,6 +100,29 @@
                                    placeholder="Repite tu nueva contraseña">
                         </div>
                     </div>
+                </div>
+
+                <!-- Eliminar Cuenta -->
+                <div class="border-t pt-6">
+                    <h3 class="text-lg font-semibold text-red-600 mb-4">Eliminar Cuenta</h3>
+                    <p class="text-sm text-gray-600 mb-4">Esta acción es irreversible. Se eliminarán todos tus libros y comentarios.</p>
+                    
+                    <details class="mb-4">  <!-- Oculta la confirmación por defecto para mejor UX -->
+                        <summary class="cursor-pointer text-red-600 font-medium">Haz clic para confirmar eliminación</summary>
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <label for="delete_password" class="block text-sm font-medium text-gray-700 mb-2">Confirma tu Contraseña</label>
+                                <input type="password" id="delete_password" name="delete_password"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
+                                       placeholder="Ingresa tu contraseña para confirmar">
+                            </div>
+                            <button type="submit" formaction="/delete-account"
+                                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 font-semibold"
+                                    onclick="return confirm('¿Estás seguro? Esta acción eliminará tu cuenta y todos tus datos permanentemente.')">
+                                Eliminar Cuenta
+                            </button>
+                        </div>
+                    </details>
                 </div>
 
                 <div class="flex space-x-4 pt-4">

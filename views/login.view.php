@@ -7,7 +7,7 @@
                 Iniciar Sesión
             </h2>
             <p class="mt-2 text-sm text-gray-600">
-                ¿No tienes cuenta?
+                Regístrate para gestionar tu colección personal de libros y compartir con la comunidad.  <!-- Texto más atractivo y explicativo -->
             </p>
         </div>
         
@@ -18,7 +18,7 @@
         <?php endif; ?>
 
         <form class="mt-8 space-y-6 bg-white p-8 rounded-2xl shadow-sm" method="POST" action="/auth">
-            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>

@@ -6,27 +6,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
     $author = filter_input(INPUT_POST, 'author');
     $publishDate = filter_input(INPUT_POST, 'year'); // Ahora es fecha
     $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+    $userId = $_SESSION['user']['id'];
     
     // Validar fecha básica
     if ($title && $author && $publishDate && strtotime($publishDate)) {
         require_once __DIR__ . '/../models/books.php';
         
         // Verificar si el libro ya existe (solo para nuevos libros)
-        if (!$id && bookExists($db, $title, $author, $publishDate)) {
+        if (!$id && bookExists($db, $title, $author, $publishDate, $userId)) {
             header('Location: /books?error=duplicate');
             exit;
         }
         
         if ($id) {
-            // Editar libro existente
-            if (updateBook($db, $id, $title, $author, $publishDate)) {
+            // Editar libro existente (verifica propiedad internamente)
+            if (updateBook($db, $id, $title, $author, $publishDate, $userId)) {
                 header('Location: /books?success=edit');
             } else {
                 header('Location: /books?error=edit');
             }
         } else {
             // Crear nuevo libro
-            if (addBook($db, $title, $author, $publishDate)) {
+            if (addBook($db, $title, $author, $publishDate, $userId)) {
                 header('Location: /books?success=add');
             } else {
                 header('Location: /books?error=add');

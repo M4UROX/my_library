@@ -17,7 +17,8 @@ define('APP_VERSION', '1.0');
 $routes = [
     'home', 'books', 'login', 'logout', 'register', 'auth', 'profile',
     'add-book', 'edit-book', 'delete-book', 'save-book',
-    'add-comment', 'save-comment', 'view-book', 'delete-comment'
+    'add-comment', 'save-comment', 'view-book', 'delete-comment',
+    'edit-comment', 'save-edit-comment', 'delete-account', 'my-books-comments'  
 ];
 
 // Inicializar variables de sesión si no existen

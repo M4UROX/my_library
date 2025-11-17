@@ -7,7 +7,7 @@
                 Crear Cuenta
             </h2>
             <p class="mt-2 text-sm text-gray-600">
-                ¿Ya tienes cuenta?
+                Inicia sesión para acceder a tu colección personal de libros.  <!-- Texto más atractivo y consistente -->
             </p>
         </div>
 
@@ -21,10 +21,16 @@
             <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
                 <?= htmlspecialchars($success) ?>
             </div>
+            <!-- Redirección automática a /login después de registro exitoso para mejorar UX -->
+            <script>
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 3000);  // 3000 ms = 3 segundos para leer el mensaje
+            </script>
         <?php endif; ?>
 
         <form class="mt-8 space-y-6 bg-white p-8 rounded-2xl shadow-sm" method="POST" action="/register">
-            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>

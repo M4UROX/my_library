@@ -117,6 +117,43 @@ function registerUser(PDO $db, string $email, string $password): bool {
 }
 
 /**
+ * Elimina un usuario y todos sus datos asociados (libros y comentarios)
+ * Requiere verificación de contraseña para seguridad
+ */
+function deleteUser(PDO $db, int $userId, string $password): bool {
+    // Verificar contraseña antes de eliminar
+    $stmt = $db->prepare("SELECT password FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch();
+    
+    if (!$user || !password_verify($password, $user['password'])) {
+        return false; // Contraseña incorrecta
+    }
+    
+    try {
+        $db->beginTransaction();
+        
+        // Eliminar comentarios del usuario
+        $stmt = $db->prepare("DELETE FROM comments WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        
+        // Eliminar libros del usuario
+        $stmt = $db->prepare("DELETE FROM books WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        
+        // Eliminar usuario
+        $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        
+        $db->commit();
+        return true;
+    } catch (Exception $e) {
+        $db->rollBack();
+        return false;
+    }
+}
+
+/**
  * Middleware para requerir autenticación
  * Redirige a login si no hay usuario en sesión
  */
